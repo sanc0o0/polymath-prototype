@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1f2f6;
+  --foreground: #171421;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Original palette — deliberately not Polymath's white/lavender look.
+     One deep "signal" accent for CTAs/focus, cool-neutral paper + ink
+     for everything else. Category chip colors live in components/ui/theme.ts. */
+  --color-paper: #f1f2f6;
+  --color-ink: #171421;
+  --color-ink-soft: #5d5f72;
+  --color-signal: #2e2a6b;
+  --color-signal-soft: #e8e7f5;
+
+  /* Semantic-only exception to the restrained palette above: used
+     exclusively for QuickCheck correct/incorrect feedback, always
+     paired with an icon and text label (never color alone). Kept
+     muted rather than saturated so they still feel like part of
+     this product, not a generic form-validation red/green. */
+  --color-success: #1b7a4d;
+  --color-success-soft: #e1f2e8;
+  --color-danger: #b23a3a;
+  --color-danger-soft: #f7e3e1;
+
+  /* Display stack for headlines/labels: rounded-geometric where the
+     platform supports it, graceful system fallback elsewhere. No
+     network font fetch — this sandbox's egress allowlist doesn't
+     include Google Fonts, and this keeps zero new dependencies. */
+  --font-display: ui-rounded, "SF Pro Rounded", "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 220ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: none;
+  }
+}
+
+@keyframes orbit-travel {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+.animate-orbit-travel {
+  offset-rotate: 0deg;
+  animation: orbit-travel 7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit-travel {
+    animation: none;
+    offset-distance: 18%;
+  }
+}
